@@ -1,5 +1,5 @@
 import argparse
-import jsonpi
+import json
 import os
 import requests
 from urllib.parse import urlparse
