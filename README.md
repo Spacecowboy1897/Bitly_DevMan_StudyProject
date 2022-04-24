@@ -25,7 +25,7 @@ python main.py https://www.google.com/
 ```
 If you would like to know the numbers of clicks on yout bitly-link, you can use 
 ```
-python main.py [yout bitlink]
+python main.py [http://your_bitlink]
 ```
 And the script returns to you the number of clicks to the bitly link for one month
 ## Project Goals
