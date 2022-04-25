@@ -2,9 +2,9 @@ import argparse
 import json
 import os
 import requests
-from urllib.parse import urlparse
 from dotenv import load_dotenv
 load_dotenv()
+from urllib.parse import urlparse
 
 
 
