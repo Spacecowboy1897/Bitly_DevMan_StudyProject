@@ -3,14 +3,9 @@ import json
 import os
 import requests
 from dotenv import load_dotenv
-load_dotenv()
 from urllib.parse import urlparse
 
-
-
-TOKEN = os.environ['BITLY_DEVMAN_TOKEN']
 URL_BITLY_CHECK = 'https://api-ssl.bitly.com/v4/bitlinks/'
-HEADERS = {'Authorization': f'Bearer {TOKEN}'}
 
 
 def count_click(user_bitlink):
@@ -18,7 +13,7 @@ def count_click(user_bitlink):
         bitlink_params = {"unit": "month",
                           "units": "-1", }
         url_count_click = (f"{URL_BITLY_CHECK}{user_bitlink}/clicks/summary")
-        url_count_response = requests.get(url_count_click, headers=HEADERS,
+        url_count_response = requests.get(url_count_click, headers=headers,
                                           params=bitlink_params)
         url_count_response.raise_for_status()
         url_count_response_decoded = url_count_response.json()
@@ -28,7 +23,7 @@ def count_click(user_bitlink):
 
 def shorten_link(url):
         payload = {"long_url": url}
-        json_bitly_response = requests.post(URL_BITLY_CHECK, headers=HEADERS,
+        json_bitly_response = requests.post(URL_BITLY_CHECK, headers=headers,
                                             json=payload)
         json_bitly_response.raise_for_status()
         json_decoded = json_bitly_response.json()
@@ -39,9 +34,9 @@ def shorten_link(url):
 def is_bitlink(is_bitlink_url):
         api_check_bitly_link = f'{URL_BITLY_CHECK}{is_bitlink_url}'
         retreive_bitlink_response = requests.get(api_check_bitly_link,
-                                                 headers=HEADERS)
+                                                 headers=headers)
         return retreive_bitlink_response.ok
-                
+
 
 def validate_link(link_url):
         response = requests.get(link_url)
@@ -55,6 +50,9 @@ def crop_url(url):
 
 
 if __name__ == '__main__':
+        load_dotenv()
+        token = os.environ['BITLY_DEVMAN_TOKEN']
+        headers = {'Authorization': f'Bearer {token}'}
         try:
             parser = argparse.ArgumentParser(
                 description='Описание что делает программа'
@@ -69,3 +67,4 @@ if __name__ == '__main__':
 
         except requests.exceptions.HTTPError as error:
             exit(f"Не могу получить данные от сервера: \n {error}")
+
