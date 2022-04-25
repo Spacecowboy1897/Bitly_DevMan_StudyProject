@@ -8,7 +8,7 @@ from urllib.parse import urlparse
 URL_BITLY_CHECK = 'https://api-ssl.bitly.com/v4/bitlinks/'
 
 
-def count_click(user_bitlink):
+def count_click(user_bitlink, headers):
         user_bitlink = crop_url(user_bitlink)
         bitlink_params = {"unit": "month",
                           "units": "-1", }
@@ -21,7 +21,7 @@ def count_click(user_bitlink):
         return url_counts
 
 
-def shorten_link(url):
+def shorten_link(url, headers):
         payload = {"long_url": url}
         json_bitly_response = requests.post(URL_BITLY_CHECK, headers=headers,
                                             json=payload)
@@ -61,9 +61,9 @@ if __name__ == '__main__':
             args = parser.parse_args()
             validate_link(args.user_link)
             if is_bitlink(crop_url(args.user_link)):
-                    print(count_click(args.user_link))
+                    print(count_click(args.user_link, headers))
             else:
-                    print(shorten_link(args.user_link))
+                    print(shorten_link(args.user_link, headers))
 
         except requests.exceptions.HTTPError as error:
             exit(f"Не могу получить данные от сервера: \n {error}")
