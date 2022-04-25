@@ -18,7 +18,7 @@ Please keep your bitly token in project directory in ".env" file.
 The name of the variable for token in your own ".env" file should be "BITLY_DEVMAN_TOKEN".
 For example, your .env file should contain string:
 ```
-"BITLY_DEVMAN_TOKEN" = "[your bitly acces token here]"
+BITLY_DEVMAN_TOKEN = [your bitly acces token here]
 ```
 
 
